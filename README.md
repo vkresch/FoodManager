@@ -1,4 +1,4 @@
-# Food Manager
+# [Food Manager](https://play.google.com/store/apps/details?id=org.foodmanager.foodmanager&hl=en_US)
 
 FoodManager let's you document your food items which you have at home. Based on these items you can define recipes and always know which recipes you can cook based on the items you have available. You get automatically statistics about the recipe for example how much it costs and weights.
 
