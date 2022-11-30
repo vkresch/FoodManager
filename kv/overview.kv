@@ -1,0 +1,183 @@
+#:kivy 1.10.0
+<OverViewScreen>
+    MDTabbedPanel:
+        id:overview_tab  
+        tab_display_mode:'icons'       
+
+        MDTab:
+            icon:'home' 
+            name: 'overview_items'
+            MDCard:
+                BoxLayout:
+                    orientation:'vertical'
+                    padding: dp(8)
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        height: '48dp'
+                        padding: '5dp'
+                        size_hint_y: None
+                        MDIconButton:
+                            icon: 'home'
+                            on_release: app.show_home_dialog()
+                        MDIconButton:
+                            icon:'refresh'
+                            on_release: app.refresh_all()
+                        MDIconButton:
+                            icon: 'delete-forever'
+                            on_release: app.show_home_warning_dialog()
+
+                        MDIconButton:
+                            icon: 'dots-vertical'
+                    
+                    MDSeparator:
+                        height: dp(2)
+
+                    RecycleView:
+                        id: homeitems
+                        viewclass: 'Label'
+                        RecycleBoxLayout:
+                            default_size: None, dp(25)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            
+                    MDSeparator:
+                        height: dp(2)
+       
+                    RecycleView:
+                        id: homeInfoView
+                        viewclass: 'Label'
+                        RecycleBoxLayout:
+                            default_size: None, dp(25)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical' 
+                
+        MDTab:
+            icon:'cart' 
+            name: 'overview_cart'
+            MDCard:
+                BoxLayout:
+                    orientation:'vertical'
+                    padding: dp(8)
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        height: '48dp'
+                        padding: '5dp'
+                        size_hint_y: None
+                        MDIconButton:
+                            icon: 'cart'
+                            on_release: app.show_cart_dialog()
+                        MDIconButton:
+                            icon:'refresh'
+                            on_release: app.refresh_all()
+                        MDIconButton:
+                            icon: 'delete-forever'
+                            on_release: app.show_cart_warning_dialog()
+                        MDIconButton:
+                            icon: 'dots-vertical'
+
+                    MDSeparator:
+                        height: dp(2)
+
+                    RecycleView:
+                        id: buyitems
+                        viewclass: 'Label'
+                        RecycleBoxLayout:
+                            default_size: None, dp(25)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False
+
+                    MDSeparator:
+                        height: dp(2)
+
+
+                    RecycleView:
+                        id: cartInfoView
+                        viewclass: 'Label'
+                        RecycleBoxLayout:
+                            default_size: None, dp(25)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False 
+
+
+        MDTab:
+            icon:'food-variant'
+            name: 'overview_recipes' 
+            Accordion:
+                orientation:'vertical'
+                AccordionItem:
+                    title: 'Home Recipes'
+                    color: (1., 0., 0., 1.)
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: dp(8)
+
+                        RecycleView:
+                            id: recitems
+                            viewclass: 'Label'
+                            RecycleBoxLayout:
+                                default_size: None, dp(25)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False
+
+
+                AccordionItem:
+                    title: 'Cart Recipes'
+                    theme_text_color: 'Primary'
+                    font_style:"Title"
+                    size_hint_y: None
+                    height: dp(36)
+                    markup:True
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: dp(8)
+
+                        RecycleView:
+                            id: cartitemsrecipes
+                            viewclass: 'Label'
+                            RecycleBoxLayout:
+                                default_size: None, dp(25)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False
+
+                AccordionItem:
+                    title: 'N/A Recipes'
+                    theme_text_color: 'Primary'
+                    font_style:"Title"
+                    size_hint_y: None
+                    height: dp(36)
+                    markup:True
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: dp(8)
+
+                        RecycleView:
+                            id: narecipes
+                            viewclass: 'Label'
+                            RecycleBoxLayout:
+                                default_size: None, dp(25)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False

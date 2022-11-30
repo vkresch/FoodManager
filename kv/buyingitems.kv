@@ -1,0 +1,334 @@
+#:kivy 1.10.0
+<BuyingItemsScreen>
+    MDTabbedPanel:
+        id:tab_panel  
+        tab_display_mode:'icons' 
+        #########################################################
+        # USED HOME ITEMS
+        #########################################################
+        MDTab:   
+            name:'usedhomeitems'
+            icon:'basket-unfill'   
+            text: "Used Items" 
+            BoxLayout:
+                orientation:'vertical'                            
+                BoxLayout:
+                    orientation:'vertical'                        
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: '48dp'
+                        padding: '5dp'
+                        MDIconButton:
+                            icon: 'food-variant'
+                        MDIconButton:
+                            icon: 'basket-unfill'
+                            on_release: app.remove_items_via_recipe();app.view_home_items();app.refresh_all()
+
+
+                    RecycleView:
+                        id: actualrecipesatHome
+                        viewclass: 'SelectableRecipeAtHomeLabel'
+                        SelectableRecycleBoxLayout:
+                            default_size: None, dp(30)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False    
+
+                # Splitter:
+                #     sizable_from: 'top'
+                #     min_size: 10
+                #     orientation:'vertical'
+                #     max_size:'200pt'
+                #     min_size:'100pt'
+
+                MDSeparator:
+                    height: dp(4)
+
+                BoxLayout:
+                    orientation:'vertical'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: '48dp'
+                        padding: '5dp'
+                        MDIconButton:
+                            icon: 'food-apple'
+                        MDIconButton:
+                            icon: 'basket-unfill'
+                            on_release: 
+                                app.remove_item_at_home()
+                                app.refresh_all()
+                        
+                        BoxLayout:
+                            orientation:'horizontal'
+                            MDLabel:
+                                id:weight_text
+                                font_size: 30
+                                theme_text_color: 'Primary'
+                                halign: 'center'
+                                text: '{} g'.format(str(round(weight_slider_usedhome.value)))
+                            MDSlider:
+                                id:weight_slider_usedhome  
+                                min:0
+                                max:100
+                                value: 0   
+
+
+                    RecycleView:
+                        id: actualitemsatHome
+                        viewclass: 'SelectableItemAtHomeLabel'
+                        SelectableRecycleBoxLayout:
+                            default_size: None, dp(30)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False
+
+                        
+
+        #########################################################
+        # ADD HOME ITEMS
+        #########################################################
+        MDTab:
+            name:'additems'
+            icon:'basket-fill'    
+            text: "Add Items"        
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation:'vertical'
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: '20dp'                            
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '48dp'
+                            padding: '5dp'
+                            MDIconButton:
+                                icon: 'cart'
+                            MDIconButton:
+                                icon: 'check'
+                                on_release: app.add_caritem_to_home()
+                            MDIconButton:
+                                icon: 'check-all'
+                                on_release: app.add_all_items_at_home_from_cart()
+                            MDLabel:
+                                id:totalCostCartItems      
+                                theme_text_color: 'Primary'
+                                markup:True
+                                font_size:30
+                                size_hint_y:1.3
+
+                        RecycleView:
+                            id: cartDB
+                            viewclass: 'SelectableInCartItemLabel'
+                            SelectableRecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False
+
+                    # Splitter:
+                    #     sizable_from: 'top'
+                    #     min_size: 10
+                    #     orientation:'vertical'
+                    #     max_size:'200pt'
+                    #     min_size:'100pt'
+
+                    MDSeparator:
+                        height: dp(4)
+
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: '20dp' 
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '48dp'
+                            padding: '5dp'
+                            MDIconButton:
+                                icon: 'home' 
+                            MDIconButton:
+                                icon: 'basket-fill'
+                                on_release: 
+                                    app.show_snackbar('Updated Items at Home')
+                                    app.commit_item_at_home()
+                                    app.refresh_cart_list()
+                                    app.commit_delta_items_in_cart()
+                                    itemsatHome.data=[]
+                                    app.refresh_all()
+                            MDIconButton:
+                                icon: 'undo' 
+                                on_release: 
+                                    app.reset_items_at_home()
+                                    app.refresh_all()
+                            MDIconButton:
+                                icon: 'delete'
+                                on_release: app.undo_staged_item()
+                                                    
+                        RecycleView:
+                            id: itemsatHome
+                            viewclass: 'SelectableStagedItemLabel'
+                            SelectableRecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False                 
+
+
+#########################################################
+# CREATE ITEM LIST
+#########################################################
+        MDTab:   
+            name:'createitemlist'
+            icon:'cart'   
+            text: "Cart Items"
+            BoxLayout:
+                orientation:'vertical'
+                padding: '20dp'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    BoxLayout:
+                        orientation:'vertical'
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '48dp'
+                            padding: '5dp'
+                            MDTextField:
+                                id: searchRecipesItemList
+                                hint_text: "Search"
+                                write_tab: False
+                                multiline: False
+                                on_text: app.filter_recipes_Item_List(self.text, recipechkbox.active)
+                            MDCheckbox:
+                                id:            recipechkbox
+                                size_hint:    None, None
+                                size:        dp(48), dp(48)
+                                on_release:app.refresh_all()
+                                active: False
+                            MDIconButton:
+                                icon: 'cart-plus'
+                                on_release: app.add_recipe_to_cart()
+
+                        RecycleView:
+                            id: recipeView
+                            viewclass: 'SelectableRecipeAddCartLabel'
+                            SelectableRecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False   
+
+                    # Splitter:
+                    #     sizable_from: 'left'
+                    #     max_size:'180pt'
+                    #     min_size:'70pt'
+                    #     orientation:'horizontal'
+
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: '48dp'
+                            padding: '5dp'
+                            MDTextField:
+                                id: searchItemsItemList
+                                hint_text: "Search"
+                                write_tab: False
+                                multiline: False
+                                on_text: app.filter_items_Item_List(self.text)
+                            MDIconButton:
+                                icon: 'cart-plus'
+                                on_release: app.add_item_to_cart()#;app.aggregate_items_in_cart()
+
+                        RecycleView:
+                            id: itemView
+                            viewclass: 'SelectableItemAddCartLabel'
+                            SelectableRecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False
+
+                        BoxLayout:
+                            orientation:'horizontal'
+                            height:'48dp'
+                            size_hint_y:None
+                            MDLabel:
+                                id:cart_weight_text
+                                font_size: 30
+                                theme_text_color: 'Primary'
+                                halign: 'center'
+                                text: '{} g'.format(str(round(cart_item_weight_slider.value)))
+                            MDSlider:
+                                id:cart_item_weight_slider                                    
+                                min:0
+                                max:100
+                                value: 0  
+
+                # Splitter:
+                #     sizable_from: 'top'
+                #     min_size: 10
+                #     orientation:'vertical'
+                #     max_size:'200pt'
+                #     min_size:'100pt'
+
+                MDSeparator:
+                    height: dp(4)
+
+                BoxLayout:
+                    orientation:'vertical'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint_y: None
+                        height: '48dp'
+                        padding: '5dp'
+                        MDIconButton:
+                            icon: 'cart'
+                            on_release: app.commit_items_in_cart();cartView.data=[];app.show_snackbar('Added Items to Cartlist');app.view_cart_items();app.refresh_all()
+                        MDIconButton:
+                            icon: 'cart-off'
+                            on_release: app.reset_items_in_cart();app.refresh_all()   
+                        MDIconButton:
+                            icon: 'delete'
+                            on_release: app.delete_item_at_cart();app.refresh_all()
+                        Button:
+                            text:'Sub Home Items'
+                            id:filter_items_button
+                            on_release: app.check_if_item_already_at_home()
+                            disabled:False
+
+
+                    RecycleView:
+                        id: cartView
+                        viewclass: 'SelectableCartViewLabel'
+                        SelectableRecycleBoxLayout:
+                            default_size: None, dp(30)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False  

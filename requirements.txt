@@ -1,0 +1,3 @@
+cython
+kivy
+git+https://gitlab.com/kivymd/KivyMD.git@master

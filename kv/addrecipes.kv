@@ -1,0 +1,124 @@
+#:kivy 1.10.0
+<AddRecipesScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation:'vertical'
+            BoxLayout:
+                orientation:'vertical'
+                padding:'20dp'  
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None                                
+                    height: '48dp'
+                    BoxLayout:
+                        orientation:'horizontal'
+                        MDTextField:
+                            id: searchItems2
+                            hint_text: "Search Item"
+                            write_tab: False
+                            multiline: False
+                            on_text: app.filter_items2(self.text)
+                        MDIconButton:
+                            icon: 'plus'
+                            on_release: app.add_item_to_recipe()#;app.aggregate_items_in_recipe()
+                
+                RecycleView:
+                    id: itemsOutput
+                    viewclass: 'SelectableAddItemToRecipeLabel'
+                    SelectableRecycleBoxLayout:
+                        default_size: None, dp(30)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+                        multiselect: False
+                        touch_multiselect: False
+                
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint_y:None
+                    height: '48dp'
+                    MDLabel:
+                        id:weight_text
+                        font_size: 30
+                        theme_text_color: 'Primary'
+                        halign: 'center'
+                        text: '{} g'.format(str(round(weight_slider_recipe.value)))
+                    MDSlider:
+                        id:weight_slider_recipe                                    
+                        min:0
+                        max:100
+                        value: 0                           
+            # Splitter:
+            #     sizable_from: 'top'
+            #     min_size: 10
+            #     orientation:'vertical'
+            #     max_size:'200pt'
+            #     min_size:'60pt' 
+
+            MDSeparator:
+                height: dp(4)
+            BoxLayout:
+                orientation:'vertical'   
+                padding:'20dp'                  
+                BoxLayout:
+                    orientation:'horizontal'
+                    height: '48dp'
+                    size_hint_y: None
+                    BoxLayout:
+                        orientation:'horizontal'
+                        MDTextField:
+                            id: recipeInput
+                            hint_text: "Recipe Name"
+                            write_tab: False
+                            multiline: False
+                            on_text_validate:   
+                                app.add_recipe(recipeInput.text) 
+                                app.refresh_all()
+                        MDIconButton:
+                            icon: 'undo'
+                            on_release: recipeInput.text="";app.delete_all_item_from_recipe()
+
+                        MDIconButton:
+                            icon: 'delete'
+                            on_release: app.delete_item_from_recipe()
+
+                RecycleView:
+                    id: selecteditemsOutput
+                    viewclass: 'SelectableRecipeItemLabel'
+                    SelectableRecycleBoxLayout:
+                        default_size: None, dp(30)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+                        multiselect: False
+                        touch_multiselect: False
+                    
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDIconButton:
+                icon: 'arrow-left'
+                on_release:
+                    app.root.ids.scr_mngr.transition.direction='right'
+                    app.root.ids.scr_mngr.current = 'recipes'
+                    app.root.ids.addrecipes_screen.ids.recipeInput.text = ''
+                    app.root.ids.addrecipes_screen.ids.selecteditemsOutput.data = []
+                    app.edit_recipe_bool = False
+            MDIconButton:
+                icon: 'content-save'
+                on_release: 
+                    app.add_recipe(recipeInput.text)              
+                    app.refresh_all()

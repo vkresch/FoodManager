@@ -1,0 +1,122 @@
+#:kivy 1.10.0
+<RecipesScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: '10dp'
+            orientation:'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: None
+                height: '48dp'
+                MDTextField:
+                    id: searchRecipes
+                    hint_text: "Search Recipe"
+                    write_tab: False
+                    multiline: False
+                    on_text: app.filter_recipes(self.text)
+                MDIconButton:
+                    icon: 'plus'
+                    on_release:
+                        app.root.ids.scr_mngr.transition.direction='left'
+                        app.root.ids.scr_mngr.current = 'addrecipes'
+                        app.edit_recipe_bool = False
+                MDIconButton:
+                    icon: 'table-edit'
+                    on_release: 
+                        app.edit_recipe()
+                MDIconButton:
+                    icon: 'delete'
+                    on_release: app.show_warning_delete_recipe_dialog() 
+            
+            RecycleView:
+                id: recipeOutput
+                viewclass: 'SelectableRecipeLabel'
+                SelectableRecycleBoxLayout:
+                    default_size: None, dp(30)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: 'vertical'     
+                    multiselect: False
+                    touch_multiselect: False
+
+
+        # Splitter:
+        #     sizable_from: 'top'
+        #     min_size: 10
+        #     orientation:'vertical'
+        #     max_size:'200pt'
+        #     min_size:'100pt' 
+        MDSeparator:
+            height: dp(4)
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: '10dp'
+            MDCard:
+                BoxLayout:
+                    orientation:'vertical'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        height: '48dp'
+                        size_hint_y: None
+                        MDLabel:
+                            id:recipeID
+                            text: 'Recipe'
+                            theme_text_color: 'Primary'
+                            font_style:"Title"
+                            size_hint_y: None
+                            height: dp(36)
+                        MDIconButton:
+                            icon: 'food-variant' 
+                        MDIconButton:
+                            icon:'refresh'
+                            on_release: app.refresh_all()
+
+                        MDIconButton:
+                            icon: 'dots-vertical'
+                            #on_release: MDDropdownMenu(items=app.menu_items, width_mult=5).open(self)
+
+                    MDSeparator:
+                        height: dp(2)
+
+                    
+                    BoxLayout:
+                        orientation:'vertical'
+
+                        BoxLayout:
+                            orientation:'vertical'
+                            padding: dp(8)
+                            RecycleView:
+                                id: itemsinrecipeOutput
+                                viewclass: 'Label'
+                                RecycleBoxLayout:
+                                    default_size: None, dp(30)
+                                    default_size_hint: 1, None
+                                    size_hint_y: None
+                                    height: self.minimum_height
+                                    orientation: 'vertical'     
+
+                        MDSeparator:
+                            height: dp(2)
+
+                        BoxLayout:
+                            orientation:'horizontal'
+                            MDLabel:
+                                id:recipeInfoView
+                                halign:'center'
+                                theme_text_color: 'Primary'
+                                font_size:40
+                                height: dp(36)
+
+                            # MDFloatingActionButton:
+                            #     id:                 float_act_btn
+                            #     icon:               'plus'
+                            #     opposite_colors:    True
+                            #     elevation_normal:    8
+                            #     pos_hint:            {'center_x': 0.9, 'center_y': 0.2}
+                            #     on_release:
+                            #         app.root.ids.scr_mngr.transition.direction='left'
+                            #         app.root.ids.scr_mngr.current = 'addrecipes'
+                            #         app.edit_recipe_bool = False

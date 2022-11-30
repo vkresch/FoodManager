@@ -1,0 +1,102 @@
+#:kivy 1.10.0
+<HistoryScreen>
+    MDTabbedPanel:
+        tab_display_mode:'icons'
+        MDTab:
+            icon:'food-apple'
+            name:'history_items'
+
+            BoxLayout:
+                orientation:'horizontal'
+                MDCard:
+                    BoxLayout:
+                        orientation:'vertical'
+                        padding: dp(8)
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            height: '48dp'
+                            padding: '5dp'
+                            size_hint_y: None
+                            MDLabel:
+                                text: 'Total Used Items'
+                                theme_text_color: 'Primary'
+                                font_style:"Title"
+                                size_hint_y: None
+                                height: dp(36)
+                                markup:True
+                            MDIconButton:
+                                icon:'refresh'
+                                on_release: app.refresh_all()
+                            MDIconButton:
+                                icon: 'dots-vertical'
+
+
+                        MDSeparator:
+                            height: dp(2)
+
+                        RecycleView:
+                            id: analysisView
+                            viewclass: 'Label'
+                            RecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False
+
+                        MDSeparator:
+                            height: dp(2)
+
+                        RecycleView:
+                            id: analysisInfoView
+                            viewclass: 'Label'
+                            RecycleBoxLayout:
+                                default_size: None, dp(30)
+                                default_size_hint: 1, None
+                                size_hint_y: None
+                                height: self.minimum_height
+                                orientation: 'vertical'
+                                multiselect: False
+                                touch_multiselect: False  
+
+        MDTab:
+            icon:'food-variant'
+            name:'history_recipes'
+            MDCard:
+                BoxLayout:
+                    orientation:'vertical'
+                    padding: dp(8)
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        height: '48dp'
+                        padding: '5dp'
+                        size_hint_y: None
+                        MDLabel:
+                            text: 'Total Used Recipes'
+                            theme_text_color: 'Primary'
+                            font_style:"Title"
+                            size_hint_y: None
+                            height: dp(36)
+                            markup:True
+                        MDIconButton:
+                            icon:'refresh'
+                            on_release: app.refresh_all()
+                        MDIconButton:
+                            icon: 'dots-vertical'
+                    MDSeparator:
+                        height: dp(2)
+
+                    RecycleView:
+                        id: analysisrecView
+                        viewclass: 'Label'
+                        RecycleBoxLayout:
+                            default_size: None, dp(30)
+                            default_size_hint: 1, None
+                            size_hint_y: None
+                            height: self.minimum_height
+                            orientation: 'vertical'
+                            multiselect: False
+                            touch_multiselect: False 
+

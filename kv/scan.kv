@@ -1,0 +1,18 @@
+#:kivy 1.10.0
+<ScanScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        Camera:
+            id: camera
+            resolution: (720, 480)
+            play: False
+        Button:
+            text: 'Capture'
+            size_hint_y: None
+            height: '48dp'
+            on_press: app.capture()
+        Button:
+            text: 'Play'
+            size_hint_y: None
+            height: '48dp'
+            on_press: camera.play = True

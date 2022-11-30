@@ -1,0 +1,16 @@
+#:kivy 1.10.0
+<AboutScreen>
+    BoxLayout:
+        orientation: 'vertical'
+        halign: 'left'
+        padding: '15dp'
+        MDLabel:
+            id:about_text
+            font_size: 18
+            theme_text_color: 'Primary'
+            halign: 'left'
+            text: 'Author: Viktor Kreschenski\nEmail: viktor.kreschenski@gmail.com\nFM Icon: Designed by Smashicons from Flaticon\nReport Issues: https://github.com/vkresch/FoodManager/issues\nDependencies: Kivy, KivyMD'
+        Image:
+            padding:'10dp'
+            source: 'img/groceries.png'
+            size: self.texture_size

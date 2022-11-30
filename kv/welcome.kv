@@ -1,0 +1,27 @@
+#:kivy 1.10.0
+<WelcomeScreen>
+    BoxLayout:
+        orientation:'vertical'
+        halign: 'center'
+        padding: '15dp'
+        Label:
+            text:'[size=48px] [color=#3e6643]Welcome[/color] [sub]to[/sub] [i][b]Food Manager[/b][/i][/size]'
+            markup:True
+        Image:
+            padding:'10dp'
+            source: 'img/groceries.png'
+            size: self.texture_size
+        BoxLayout:
+            orientation:'vertical'
+            spacing: 10
+            MDRaisedButton:
+                text:'Restore data'
+                size_hint_x: 1
+                on_release: 
+                    app.show_restore_warning_dialog()
+            MDRaisedButton:
+                text:'Back up data'
+                size_hint_x: 1
+                on_release: 
+                    app.back_up()            
+            
