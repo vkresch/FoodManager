@@ -1,12 +1,12 @@
 # [Food Manager](https://play.google.com/store/apps/details?id=org.foodmanager.foodmanager&hl=en_US)
 
-FoodManager let's you document your food items which you have at home. Based on these items you can define recipes and always know which recipes you can cook based on the items you have available. You get automatically statistics about the recipe for example how much it costs and weights.
+With FoodManager, you can easily keep track of the ingredients in your kitchen and use that information to plan delicious meals. Simply add your food items to the app, and it will show you all the recipes you can make with the ingredients you have on hand. Plus, FoodManager provides automatic nutritional information for each recipe, so you can see exactly how much a meal will cost and how many calories it contains.
 
-You can also use the app as a shopping list. Select a recipe you saved and add it to the cart. The cart will have all the items inside them which you need to buy to be able to cook the recipe.
+But that's not all – FoodManager also doubles as a handy shopping list. Simply select a recipe you want to make, and the app will add all the necessary ingredients to your cart. That way, you'll always know exactly what to buy at the store.
 
-FoodManager is currently under develeopment and is the first release to get feedback from the users. Please report any issues, feature requests and bugs on  https://github.com/vkresch/FoodManager/issues. FoodManager was developed with the Python Kivy Framework.
+FoodManager is still under development, so please let us know if you encounter any bugs or have any suggestions for new features. We'd love to hear your feedback at https://github.com/vkresch/FoodManager/issues. FoodManager was built using the Python Kivy Framework.
 
-Enjoy the app!
+Happy cooking!
 
 ## Getting Started
 ### Dependencies
